@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Cil-Kid | Dapatkan Penawaran Spesial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header {
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #0066cc;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .banner {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #25D366;
+            color: white;
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-icon {
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .footer {
+            margin-top: 60px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .cta-button {
+                font-size: 1rem;
+                padding: 12px 25px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+
+            .banner {
+                margin-bottom: 20px;
+            }
+
+            h2 {
+                font-size: 1.7rem !important;
+            }
+
+            .popup-content {
+                padding: 20px;
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 1.7rem;
+                margin-bottom: 10px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .cta-button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .tagline {
+                font-size: 0.9rem;
+                margin-bottom: 15px;
+            }
+
+            p {
+                font-size: 0.95rem;
+            }
+
+            .footer {
+                margin-top: 40px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Pop-up styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .popup-close:hover {
+            color: #333;
+        }
+
+        .popup-whatsapp-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #25D366;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Pop-up -->
+    <div id="infoPopup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="popup-close" onclick="closePopup()">&times;</span>
+            <h3 style="color: #0066cc; margin-bottom: 15px;">Informasi Penting</h3>
+            <p>Informasi ini juga dibagikan melalui saluran Resmi WhatsApp Info Garapan yang bisa diakses di:</p>
+            <a href="https://whatsapp.com/channel/0029VaB75Re1noz4Q64Q051a" target="_blank" class="popup-whatsapp-link">
+                <svg class="whatsapp-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 5px;">
+                    <path d="M20.4054 3.5875C18.1607 1.3425 15.1714 0.0825 12.0054 0.075C5.4375 0.075 0.0804 5.4325 0.0804 11.9975C0.0804 14.1275 0.6589 16.1925 1.7464 18.0075L0 24L6.1393 22.29C7.8857 23.2725 9.9268 23.79 12.0054 23.79C18.5732 23.79 24 18.4325 24 11.8675C23.9304 8.7675 22.65 5.8325 20.4054 3.5875Z" fill="#25D366"/>
+                </svg>
+                Saluran WhatsApp Info Garapan
+            </a>
+            <div style="margin-top: 20px;">
+                <button onclick="closePopup()" style="background-color: #0066cc; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Tutup</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>Event Chil-kid </h1>
+            <p class="tagline">Dapatkan kode voucher untuk menikmati penawaran spesial!</p>
+        </header>
+
+        <main>
+            <img src="https://scontent.fpnk3-1.fna.fbcdn.net/v/t45.1600-4/484827696_515609654641205_5948252089801139134_n.jpg?stp=cp0_dst-jpg_p526x296_q75_spS444_tt6&_nc_cat=104&ccb=1-7&_nc_sid=c02adf&_nc_eui2=AeHJWcWyCJYVVX_nmcU5vcw9Lxo4cgUn0oYvGjhyBSfShpoLw4JFWjwfBaSoaPL-0HKoC0U90SWw9bFJZsLQ5n1N&_nc_ohc=eFFpZawPSTkQ7kNvgG-qLgr&_nc_oc=AdmKryVt72j7k5yy5BVvF3_cFMp6ZLsO6QLX_sSF7EvJdqw1UVxXNNvx7NmQcSINu1c&_nc_zt=1&_nc_ht=scontent.fpnk3-1.fna&_nc_gid=oc1X8fltwDXCL6VN3AgHLg&oh=00_AYFtFlsmDCQCWOo5tSbDh7ErZsTTti6_oRF80kJnfKYQxw&oe=67EF3A6B" alt="Banner Event Cil-Kid" class="banner">
+            
+            <div>
+                <p>Jangan lewatkan kesempatan untuk mendapatkan penawaran spesial dari Event Cil-Kid!</p>
+                <p>Klik tombol di bawah untuk mengakses event melalui WhatsApp:</p>
+                
+                <a href="https://api.whatsapp.com/send?phone=628111500995&token=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjEyNSJ9.eyJleHAiOjE3NDM0MzUxMzMsInBob25lIjoiNjI4MTExNTAwOTk1IiwidGV4dCI6IlRhdXRhbjpcbmh0dHBzOlwvXC9mYi5tZVwvYzNoYTVWWnVxXG5cbkhpISBTYXlhIGluZ2luIG1lbmRhcGF0a2FuIGtvZGUgdm91Y2hlciB1bnR1ayBtZW5pa21hdGkgcGVuYXdhcmFuIHNwZXNpYWwhIiwic291cmNlX3VybCI6Imh0dHBzOlwvXC9mYi5tZVwvYzNoYTVWWnVxIiwiaWNlYnJlYWtlciI6IkhpISBTYXlhIGluZ2luIG1lbmRhcGF0a2FuIGtvZGUgdm91Y2hlciB1bnR1ayBtZW5pa21hdGkgcGVuYXdhcmFuIHNwZXNpYWwhIiwiYXBwIjoiZmFjZWJvb2siLCJlbnRyeV9wb2ludCI6ImN0d2FfYWQiLCJqaWQiOiI2MjgxMTE1MDA5OTVcdTAwNDBzLndoYXRzYXBwLm5ldCIsImhhdmVfd20iOjEsInNob3dfa2V5Ym9hcmQiOjEsInNob3dfYWRfYXR0cmlidXRpb24iOjEsImJhbm5lciI6eyJ0aXRsZSI6ImJpel9jcmVhdGlvbl9kYXRlIiwiYml6X2NyZWF0aW9uX2RhdGUiOjE1NTg2ODUzMTAwMDB9LCJzb3VyY2UiOiJGQl9BZHMiLCJzb3VyY2VfaWQiOiIxMjAyMjAyNjYzNjIyMTAzMTIiLCJjbGllbnRfZmlsdGVycyI6WyJkaXNjbG9zdXJlX2FjY2VwdGVkIl0sInBheWxvYWQiOiJBZmVrZWk5bmhVajhMZm1lUS1ncTh3aEZaLWJ0eE0yTU1vaDNJTTBmZGZMT0JQTmpWTldBU05SWG5OSExBWmFLUFczR1ZwZFNPajlWT2tqb1F5OEVSc2M3YV9XWnlmSEIzX1pfYXAtaG5vYmRrUzJiS0ROR0l0MVBPRTBGYUV2UmFzd2R6RURLblozdDVUQ2xDQ0xnc1BvbEZWNnJBdlUtUVktLWhEbTFUZHlGcDQ5UHJUN0MtUlhhUzNBOXpYXzRfRFJNcTVvbFdXZGk2Y3U1emx4OHR0bGpLY0xrUXN0N3pFVkhibzU3eW1OVUF6RVlnc1JGd2x5YW45cjZNU2dfM0Fnc0RGWEhnTEFmVXVqNW9NVHhxNkVtbzdMaFFwcUJJb3RqeDVNdFZ4YjFQd3AtRzAyMHdMbTFnaDZ1OUJuaXNUNCIsInNpZ25hbHMiOiJhbGwifQ.XtXbeKuIITj5_yEzz0NsbUr-i24WOpdiDfnbZyw7bIYMYa3TagghtZzi8m33f2ZFloZQ51Khu9AIHbQAznHF6Q" class="cta-button" target="_blank">
+                    <svg class="whatsapp-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.4054 3.5875C18.1607 1.3425 15.1714 0.0825 12.0054 0.075C5.4375 0.075 0.0804 5.4325 0.0804 11.9975C0.0804 14.1275 0.6589 16.1925 1.7464 18.0075L0 24L6.1393 22.29C7.8857 23.2725 9.9268 23.79 12.0054 23.79C18.5732 23.79 24 18.4325 24 11.8675C23.9304 8.7675 22.65 5.8325 20.4054 3.5875ZM12.0054 21.7875C10.2589 21.7875 8.5125 21.3 7.0393 20.3925L6.6696 20.175L2.8929 21.18L3.9107 17.475L3.6696 17.0925C2.6518 15.555 2.1429 13.8075 2.1429 12.06C2.1429 6.585 6.5786 2.1475 12.075 2.1475C14.7054 2.1475 17.1964 3.2075 19.0125 5.0175C20.8286 6.8275 21.9161 9.3175 21.9161 11.9475C21.8464 17.4225 17.4107 21.7875 12.0054 21.7875ZM17.4804 14.5125C17.1804 14.3625 15.7071 13.6425 15.4768 13.5675C15.1768 13.4925 14.9679 13.4175 14.7589 13.7925C14.55 14.0925 13.9714 14.7375 13.7625 14.9475C13.6232 15.1575 13.4143 15.1575 13.1143 15.0825C10.9357 14.0175 9.4821 13.1625 8.0286 10.71C7.6821 10.1175 8.2339 10.155 8.7429 9.135C8.8125 8.9325 8.7429 8.8575 8.7429 8.7075C8.7429 8.5575 8.2339 7.0875 7.9536 6.4875C7.6732 5.8875 7.3929 5.9625 7.1839 5.9625C7.0446 5.9625 6.8357 5.9625 6.6964 5.9625C6.4875 5.9625 6.1875 6.0375 5.9786 6.3375C5.7696 6.6375 4.9821 7.3575 4.9821 8.8275C4.9821 10.2975 6.0696 11.6925 6.2089 11.8425C6.3482 12.0675 8.1643 14.895 10.9357 16.1475C12.8911 17.0025 13.6232 17.0775 14.5714 16.9275C15.1768 16.8525 16.3339 16.1325 16.6143 15.4575C16.8232 14.7075 16.8232 14.0925 16.7536 14.0175C16.6143 13.9425 16.4054 13.8675 16.1054 13.7925L17.4804 14.5125Z" fill="white"/>
+                    </svg>
+                    Akses Event via WhatsApp
+                </a>
+            </div>
+            
+            <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+            
+            <h2 style="color: #0066cc; margin-bottom: 15px; font-size: 2rem;">Event Chil-Go</h2>
+            <img src="https://scontent.fpnk3-1.fna.fbcdn.net/v/t45.1600-4/484587294_1444691703176020_7493940117532611073_n.jpg?stp=cp0_dst-jpg_p526x296_q75_spS444_tt6&_nc_cat=109&ccb=1-7&_nc_sid=c02adf&_nc_eui2=AeERhoy6KIXKNT3SE3yxeF_Sz3aL-H4hDVTPdov4fiENVPC54AaXWmUyHM3LIJMdOWf_AITxkzQZ_m6N1YfMEVZx&_nc_ohc=hVvkdrfj55MQ7kNvgFbWuon&_nc_oc=AdnZMM9_N7k-4kqb1DrMBbF2X7Q4WSF7iT4iEEbtDzx6XYl6vnK6zXA6SxLdYpM0cOM&_nc_zt=1&_nc_ht=scontent.fpnk3-1.fna&_nc_gid=93jIrDJmONBrgGh5COOauw&oh=00_AYFiWt2e-e76ETGOkp_D0sH-WrwIfppwPUcqzzmo87pE9w&oe=67EF1D4C" alt="Banner Event Chil-Go" class="banner">
+            
+            <div>
+                <p>Jangan lewatkan kesempatan untuk mendapatkan penawaran spesial dari Event Chil-Go!</p>
+                <p>Klik tombol di bawah untuk mengakses event melalui WhatsApp:</p>
+                
+                <a href="https://api.whatsapp.com/send?phone=628111500995&token=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjEyNSJ9.eyJleHAiOjE3NDMyNDAxNDAsInBob25lIjoiNjI4MTExNTAwOTk1IiwidGV4dCI6IlRhdXRhbjpcbmh0dHBzOlwvXC9mYi5tZVwvMzZNc2I1azBVXG5cbkhpISBTYXlhIGluZ2luIG1lbmRhcGF0a2FuIGtvZGUgdm91Y2hlciB1bnR1ayBtZW5pa21hdGkgcGVuYXdhcmFuIHNwZXNpYWwhIiwic291cmNlX3VybCI6Imh0dHBzOlwvXC9mYi5tZVwvMzZNc2I1azBVIiwiaWNlYnJlYWtlciI6IkhpISBTYXlhIGluZ2luIG1lbmRhcGF0a2FuIGtvZGUgdm91Y2hlciB1bnR1ayBtZW5pa21hdGkgcGVuYXdhcmFuIHNwZXNpYWwhIiwiYXBwIjoiZmFjZWJvb2siLCJlbnRyeV9wb2ludCI6ImN0d2FfYWQiLCJqaWQiOiI2MjgxMTE1MDA5OTVcdTAwNDBzLndoYXRzYXBwLm5ldCIsImhhdmVfd20iOjEsInNob3dfa2V5Ym9hcmQiOjEsInNob3dfYWRfYXR0cmlidXRpb24iOjEsImJhbm5lciI6eyJ0aXRsZSI6ImJpel9jcmVhdGlvbl9kYXRlIiwiYml6X2NyZWF0aW9uX2RhdGUiOjE1NTg2ODUzMTAwMDB9LCJzb3VyY2UiOiJGQl9BZHMiLCJzb3VyY2VfaWQiOiIxMjAyMjAyNjY0MTEzNDAzMTIiLCJjbGllbnRfZmlsdGVycyI6WyJkaXNjbG9zdXJlX2FjY2VwdGVkIl0sInBheWxvYWQiOiJBZmV2dkp2QTFIZWEzUHh4SmJ2UnQyZWZPaV8zUmxyMENxVnRpaC16dGFCaVZjbHlnZHFTbWZqa2ZSLUlSall5bVdwUWlUaWpVbVU5U21zazNuOVRTbi1vZkU0ZGhiX2RQdVRVaDdWTFJfblhveVJLeV8tVHBNUDNCVGt4RGdqLTc2R2JYaUNQNmNRdzdqbllyaDZyQ1lpaW9PeEY4VFk2clF4WjZpSkFZMU9CWGdYQ3UtaW9MRWZIWUNUa1JPSVUyUUtINENhTER4YnhmNTB0eEZkYjJjWjBpQ2hic1JIZlpibHhPME5mWFd2RE1Bd1VqaXZqSWpqY3gwYjlsQ2N4M2dZb3V1bjl0cGx6WHpSWDlEMkVRMng5MkZMbVhMNVQ2RFBpbWY2WVFDLTAwOU1VY0tNUWdGMTdvMmdUQ0pha3JmQSIsInNpZ25hbHMiOiJhbGwifQ.Ttr_IK6BHP3CwHKoZ42BwlfgSiWZNrcJY3aAbUd3kZ0qkV4-oo9oQh4p5w17WKqdfgfwWD9Yvo2_DH0CErV_LA" class="cta-button" target="_blank">
+                    <svg class="whatsapp-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.4054 3.5875C18.1607 1.3425 15.1714 0.0825 12.0054 0.075C5.4375 0.075 0.0804 5.4325 0.0804 11.9975C0.0804 14.1275 0.6589 16.1925 1.7464 18.0075L0 24L6.1393 22.29C7.8857 23.2725 9.9268 23.79 12.0054 23.79C18.5732 23.79 24 18.4325 24 11.8675C23.9304 8.7675 22.65 5.8325 20.4054 3.5875ZM12.0054 21.7875C10.2589 21.7875 8.5125 21.3 7.0393 20.3925L6.6696 20.175L2.8929 21.18L3.9107 17.475L3.6696 17.0925C2.6518 15.555 2.1429 13.8075 2.1429 12.06C2.1429 6.585 6.5786 2.1475 12.075 2.1475C14.7054 2.1475 17.1964 3.2075 19.0125 5.0175C20.8286 6.8275 21.9161 9.3175 21.9161 11.9475C21.8464 17.4225 17.4107 21.7875 12.0054 21.7875ZM17.4804 14.5125C17.1804 14.3625 15.7071 13.6425 15.4768 13.5675C15.1768 13.4925 14.9679 13.4175 14.7589 13.7925C14.55 14.0925 13.9714 14.7375 13.7625 14.9475C13.6232 15.1575 13.4143 15.1575 13.1143 15.0825C10.9357 14.0175 9.4821 13.1625 8.0286 10.71C7.6821 10.1175 8.2339 10.155 8.7429 9.135C8.8125 8.9325 8.7429 8.8575 8.7429 8.7075C8.7429 8.5575 8.2339 7.0875 7.9536 6.4875C7.6732 5.8875 7.3929 5.9625 7.1839 5.9625C7.0446 5.9625 6.8357 5.9625 6.6964 5.9625C6.4875 5.9625 6.1875 6.0375 5.9786 6.3375C5.7696 6.6375 4.9821 7.3575 4.9821 8.8275C4.9821 10.2975 6.0696 11.6925 6.2089 11.8425C6.3482 12.0675 8.1643 14.895 10.9357 16.1475C12.8911 17.0025 13.6232 17.0775 14.5714 16.9275C15.1768 16.8525 16.3339 16.1325 16.6143 15.4575C16.8232 14.7075 16.8232 14.0925 16.7536 14.0175C16.6143 13.9425 16.4054 13.8675 16.1054 13.7925L17.4804 14.5125Z" fill="white"/>
+                    </svg>
+                    Akses Event via WhatsApp
+                </a>
+            </div>
+        </main>
+
+        <footer class="footer">
+           <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+               <p>Informasi ini juga dibagikan melalui saluran Resmi WhatsApp Info Garapan yang bisa diakses di:</p>
+               <a href="https://whatsapp.com/channel/0029VaB75Re1noz4Q64Q051a" target="_blank" style="display: inline-block; margin-top: 10px; color: #25D366; text-decoration: none; font-weight: bold;">
+                   <svg class="whatsapp-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 5px;">
+                       <path d="M20.4054 3.5875C18.1607 1.3425 15.1714 0.0825 12.0054 0.075C5.4375 0.075 0.0804 5.4325 0.0804 11.9975C0.0804 14.1275 0.6589 16.1925 1.7464 18.0075L0 24L6.1393 22.29C7.8857 23.2725 9.9268 23.79 12.0054 23.79C18.5732 23.79 24 18.4325 24 11.8675C23.9304 8.7675 22.65 5.8325 20.4054 3.5875Z" fill="#25D366"/>
+                   </svg>
+                   Saluran WhatsApp Info Garapan
+               </a>
+           </div>
+        </footer>
+    </div>
+
+    <script>
+        function closePopup() {
+            document.getElementById('infoPopup').style.display = 'none';
+        }
+        
+        // Close popup when clicking outside of it
+        window.addEventListener('click', function(event) {
+            var popup = document.getElementById('infoPopup');
+            if (event.target === popup) {
+                closePopup();
+            }
+        });
+
+        // Nonaktifkan copy-paste
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+        });
+        
+        document.addEventListener('cut', function(e) {
+            e.preventDefault();
+        });
+        
+        document.addEventListener('paste', function(e) {
+            e.preventDefault();
+        });
+
+        // Deteksi dan cegah DevTools
+        function detectDevTools() {
+            const widthThreshold = window.outerWidth - window.innerWidth > 160;
+            const heightThreshold = window.outerHeight - window.innerHeight > 160;
+            
+            if(widthThreshold || heightThreshold) {
+                document.body.innerHTML = '<div style="text-align:center;padding:50px;"><h1>Akses Ditolak</h1><p>Mohon tutup Developer Tools untuk melanjutkan.</p></div>';
+            }
+        }
+
+        setInterval(detectDevTools, 1000);
+        
+        // Deteksi DevTools dengan console.log
+        const devToolsDetector = function() {
+            const checks = {
+                devToolsOpen: false,
+                previousState: false
+            };
+            
+            const element = new Image();
+            element.__defineGetter__('id', function() {
+                checks.devToolsOpen = true;
+            });
+            
+            setInterval(function() {
+                checks.previousState = checks.devToolsOpen;
+                checks.devToolsOpen = false;
+                console.log(element);
+                console.clear();
+                if (checks.devToolsOpen) {
+                    document.body.innerHTML = '<div style="text-align:center;padding:50px;"><h1>Akses Ditolak</h1><p>Mohon tutup Developer Tools untuk melanjutkan.</p></div>';
+                }
+            }, 1000);
+        };
+        
+        if (window.console && window.console.firebug) {
+            document.body.innerHTML = '<div style="text-align:center;padding:50px;"><h1>Akses Ditolak</h1><p>Mohon tutup Developer Tools untuk melanjutkan.</p></div>';
+        }
+        
+        devToolsDetector();
+
+        // Mencegah seleksi teks
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
+        
+        document.addEventListener('mousedown', function(e) {
+            if (e.detail > 1) { // Mencegah double-click selection
+                e.preventDefault();
+            }
+        });
+        
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
