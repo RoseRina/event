@@ -191,6 +191,36 @@
             text-decoration: none;
             font-weight: bold;
         }
+        
+        .upload-preview {
+            max-width: 100%;
+            max-height: 200px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .file-upload-box {
+            border: 2px dashed #ccc;
+            padding: 15px;
+            text-align: center;
+            margin-top: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .file-upload-box:hover {
+            border-color: #0066cc;
+        }
+        
+        .upload-icon {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -199,15 +229,39 @@
         <div class="popup-content">
             <span class="popup-close" onclick="closePopup()">&times;</span>
             <h3 style="color: #0066cc; margin-bottom: 15px;">Informasi Penting</h3>
-            <p>Informasi ini juga dibagikan melalui saluran Resmi WhatsApp Info Garapan yang bisa diakses di:</p>
-            <a href="https://whatsapp.com/channel/0029VaB75Re1noz4Q64Q051a" target="_blank" class="popup-whatsapp-link">
+            <p>Sebelum mengakses voucher, Anda WAJIB mengikuti saluran Resmi WhatsApp Info Garapan terlebih dahulu:</p>
+            <a href="https://whatsapp.com/channel/0029VaB75Re1noz4Q64Q051a" target="_blank" class="popup-whatsapp-link" id="channelLink">
                 <svg class="whatsapp-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 5px;">
                     <path d="M20.4054 3.5875C18.1607 1.3425 15.1714 0.0825 12.0054 0.075C5.4375 0.075 0.0804 5.4325 0.0804 11.9975C0.0804 14.1275 0.6589 16.1925 1.7464 18.0075L0 24L6.1393 22.29C7.8857 23.2725 9.9268 23.79 12.0054 23.79C18.5732 23.79 24 18.4325 24 11.8675C23.9304 8.7675 22.65 5.8325 20.4054 3.5875Z" fill="#25D366"/>
                 </svg>
                 Saluran WhatsApp Info Garapan
             </a>
+            
+            <div style="margin-top: 15px; font-size: 0.9rem; color: #666; text-align: left; padding: 10px; border: 1px dashed #ccc; border-radius: 5px;">
+                <p style="margin-bottom: 8px; font-weight: bold;">Cara Mengikuti Saluran:</p>
+                <ol style="margin-left: 20px;">
+                    <li>Klik link saluran di atas</li>
+                    <li>Tekan tombol "Ikuti" pada halaman saluran</li>
+                    <li>Screenshot/foto bukti Anda telah mengikuti</li>
+                    <li>Kembali ke halaman ini dan unggah bukti</li>
+                </ol>
+            </div>
+            
+            <div class="file-upload-box" id="uploadBox" onclick="document.getElementById('proofImage').click()">
+                <span class="upload-icon">📷</span>
+                <p>Klik untuk unggah screenshot bukti</p>
+                <input type="file" id="proofImage" accept="image/*" style="display: none;" onchange="showPreview(this)">
+            </div>
+            
+            <img id="imagePreview" class="upload-preview" src="#" alt="Preview">
+            
             <div style="margin-top: 20px;">
-                <button onclick="closePopup()" style="background-color: #0066cc; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Tutup</button>
+                <input type="checkbox" id="channelConfirmation" style="margin-right: 8px; vertical-align: middle;">
+                <label for="channelConfirmation" style="vertical-align: middle;">Saya sudah mengikuti saluran WhatsApp</label>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <button id="confirmButton" onclick="confirmSubscription()" style="background-color: #0066cc; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; opacity: 0.5;" disabled>Lanjutkan</button>
             </div>
         </div>
     </div>
@@ -265,14 +319,92 @@
     </div>
 
     <script>
+        // Cek apakah pengguna sudah mengikuti saluran
+        let hasSubscribed = false;
+        let hasUploadedProof = false;
+        
+        // Menampilkan preview gambar yang diunggah
+        function showPreview(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    document.getElementById('uploadBox').style.borderColor = '#25D366';
+                    document.getElementById('uploadBox').innerHTML = '<span class="upload-icon" style="color: #25D366;">✓</span><p>Bukti berhasil diunggah</p>';
+                    
+                    hasUploadedProof = true;
+                    checkRequirements();
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        // Memeriksa apakah semua persyaratan telah dipenuhi
+        function checkRequirements() {
+            const confirmButton = document.getElementById('confirmButton');
+            const isChecked = document.getElementById('channelConfirmation').checked;
+            
+            if (isChecked && hasUploadedProof) {
+                confirmButton.style.opacity = '1';
+                confirmButton.disabled = false;
+            } else {
+                confirmButton.style.opacity = '0.5';
+                confirmButton.disabled = true;
+            }
+        }
+        
+        // Mengaktifkan tombol lanjutkan jika checkbox dicentang
+        document.getElementById('channelConfirmation').addEventListener('change', function() {
+            checkRequirements();
+        });
+        
+        // Konfirmasi langganan saluran
+        function confirmSubscription() {
+            hasSubscribed = true;
+            closePopup();
+            
+            // Aktifkan tombol-tombol CTA
+            const ctaButtons = document.querySelectorAll('.cta-button');
+            ctaButtons.forEach(button => {
+                const originalHref = button.getAttribute('data-original-href');
+                if (originalHref) {
+                    button.href = originalHref;
+                }
+            });
+        }
+        
         function closePopup() {
             document.getElementById('infoPopup').style.display = 'none';
         }
         
+        // Simpan URL asli dan nonaktifkan tombol CTA
+        window.addEventListener('DOMContentLoaded', function() {
+            const ctaButtons = document.querySelectorAll('.cta-button');
+            ctaButtons.forEach(button => {
+                // Simpan URL asli
+                const originalHref = button.href;
+                button.setAttribute('data-original-href', originalHref);
+                
+                // Nonaktifkan tombol-tombol CTA sampai pengguna mengikuti saluran
+                button.href = 'javascript:void(0)';
+                button.addEventListener('click', function(e) {
+                    if (!hasSubscribed) {
+                        e.preventDefault();
+                        alert('Anda harus mengikuti saluran WhatsApp terlebih dahulu!');
+                        document.getElementById('infoPopup').style.display = 'flex';
+                    }
+                });
+            });
+        });
+
         // Close popup when clicking outside of it
         window.addEventListener('click', function(event) {
             var popup = document.getElementById('infoPopup');
-            if (event.target === popup) {
+            if (event.target === popup && hasSubscribed) {
                 closePopup();
             }
         });
