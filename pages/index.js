@@ -187,7 +187,34 @@ export default function Home({ events }) {
 // Fungsi ini akan dijalankan saat build time atau saat request
 export async function getServerSideProps() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3002'}/api/events`);
+    // Coba ambil dari API absolute URL terlebih dahulu
+    let baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    
+    // Jika di Vercel, gunakan VERCEL_URL
+    if (process.env.VERCEL_URL) {
+      baseUrl = `https://${process.env.VERCEL_URL}`;
+    }
+    
+    // Fallback ke localhost jika tidak ada
+    if (!baseUrl) {
+      baseUrl = 'http://localhost:3000';
+    }
+    
+    console.log('Fetching events from:', `${baseUrl}/api/events`);
+    
+    const res = await fetch(`${baseUrl}/api/events`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'GET',
+    });
+    
+    // Pastikan response OK
+    if (!res.ok) {
+      console.error('API response not OK:', res.status, res.statusText);
+      throw new Error(`API responded with status: ${res.status}`);
+    }
+    
     const events = await res.json();
     
     return {
@@ -197,6 +224,7 @@ export async function getServerSideProps() {
     };
   } catch (error) {
     console.error('Error fetching events:', error);
+    // Return empty events array instead of failing
     return {
       props: {
         events: [],
